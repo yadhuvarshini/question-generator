@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+
+            <div  class="input-group mb-3 mt-5">
+                <span class="input-group-text" id="basic-addon1">Question</span>
+                <input type="text" id="question" class="form-control" placeholder="Question" aria-label="question" aria-describedby="basic-addon1">
+            </div>
+
+            <div  class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Formula</span>
+                <input type="text" id="formula" class="form-control" placeholder="Formula" aria-label="formula" aria-describedby="basic-addon2">
+            </div>
+
+            <div  class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Option 1</span>
+                <input type="text" id="option1" class="form-control" placeholder="Option" aria-label="formula" aria-describedby="basic-addon2">
+            </div>
+
+            <div  class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Option 2</span>
+                <input type="text" id="option2" class="form-control" placeholder="Option" aria-label="formula" aria-describedby="basic-addon2">
+            </div>
+
+            <div  class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Option 3</span>
+                <input type="text" id="option3" class="form-control" placeholder="Option" aria-label="formula" aria-describedby="basic-addon2">
+            </div>
+
+            <div class="mb-3">
+                <label for="solution" class="form-label">Solution</label>
+                <textarea class="form-control" id="solution" rows="3"></textarea>
+              </div>
+
+            <div  class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Variable</span>
+                <input type="number" id="variable_count" class="form-control" placeholder="variable" aria-label="variable" aria-describedby="basic-addon4">
+                <button type="button" class="btn btn-success" id="btn-1">Add Variable</button>
+            </div>
+
+            <div  class="input-group mb-3 mt-5">
+                <div id="variable_no"></div><div id="variable_max"></div><div id="variable_min"></div>
+            </div>
+
+
+            <div class="input-group mb-3">
+                <button type="button" class="btn btn-success" id="btn-2">Submit</button>
+            </div>
+
+            <div id="test"></div>
+
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="list"></div>
+                <div id="pagination"></div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="./index.js" type="module"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+</body>   
+</html>
