@@ -1,4 +1,3 @@
-import Files from "./Files"
 document.getElementById("btn-1").addEventListener("click", addFields, false);
 document.getElementById("btn-2").addEventListener("click", submit, false);   
 
@@ -7,7 +6,7 @@ var variable_count = document.getElementById("variable_count").value;
 var variable_no = document.getElementById("variable_no");                               
 var variable_max = document.getElementById("variable_max");                             
 var variable_min = document.getElementById("variable_min");                             
-
+var csvContent
 
 var arr_variable =[] 
 var arr_max = [];
@@ -179,12 +178,17 @@ function submit(){
         option3 = (eval(option3))
         if(Number.isInteger(answer))
         {   
-            result.push([no+`:`+question+'\n'+solution+'\n'+option1+'\n'+option2+'\n'+option3+'\n\n'+answer]);
+            result.push([no+`:`+question+'\n'
+            +solution+'\n'+option1+'\n'+option2+'\n'+option3+'\n\n'+answer]);
             no = no + 1
         }
         // res = document.getElementById("test").innerHTML += result
+         csvContent = "data:text/csv;question_generator," + result.map(e => e.join(",")).join("\n");
+        
     }
-    
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+
     const list_element = document.getElementById('list');
     const pagination_element = document.getElementById('pagination');
 
@@ -284,3 +288,5 @@ function replaceAll(string, search, replace) {
 //filter out integers
 // a != b
 //option
+//question paraphrase
+//
