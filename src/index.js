@@ -1,6 +1,5 @@
 document.getElementById("btn-1").addEventListener("click", addFields, false);
-document.getElementById("btn-2").addEventListener("click", submit, false);   
-
+document.getElementById("btn-2").addEventListener("click", submit, false);  
 
 var variable_count = document.getElementById("variable_count").value;                   
 var variable_no = document.getElementById("variable_no");                               
@@ -82,9 +81,7 @@ function addFields(){
         // array.id = "min_variable_no"+i;
         // variable_arr.appendChild(array);
         // arr_t[i] = array.id;
-        
-
-                                                                                                
+                                                                                              
         variable_no.appendChild(document.createElement("br"));
         variable_no.appendChild(document.createElement("br"));
 
@@ -172,20 +169,35 @@ function submit(){
             option3 = replaceAll(option3,temp2,tempo[j])
             solution = replaceAll(solution,temp2,tempo[j])
         }
-        answer = (eval(formula))
-        option1 = (eval(option1))
-        option2 = (eval(option2))
-        option3 = (eval(option3))
+            answer = (eval(formula))
+            option1 = (eval(option1))
+            option2 = (eval(option2))
+            option3 = (eval(option3))
         if(Number.isInteger(answer))
         {   
-            result.push([no+`:`+question+'\n'
-            +solution+'\n'+option1+'\n'+option2+'\n'+option3+'\n\n'+answer]);
+            result[i] = [no,question,solution,option1,option2,option3,answer];
             no = no + 1
         }
-        // res = document.getElementById("test").innerHTML += result
-         csvContent = "data:text/csv;question_generator," + result.map(e => e.join(",")).join("\n");
-        
-    }
+        document.getElementById("test").innerHTML += `<table class="table">
+        <tbody>
+          <tr>
+            <td>`+no+") "+question+`</td>
+            <td> Solution: `+solution+`</td>
+            <td> Option 1: `+option1+`</td>
+            <td> Option 2: `+option2+`</td>
+            <td> Option 3: `+option3+`</td>
+            <td> Answer: `+answer+`</td>
+          </tr>
+        </tbody>
+      </table>`
+        csvContent = "data:text/csv;question_generator,";
+        result.forEach(function(rowArray) {
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+    } 
+    console.log(JSON.stringify(res));
+
     var encodedUri = encodeURI(csvContent);
     window.open(encodedUri);
 

@@ -31,7 +31,5 @@ module.exports = {
       template: 'src/index.html'
     }),
   ]
-  node: {
-    fs: 'empty'
-  }
+  
 };
