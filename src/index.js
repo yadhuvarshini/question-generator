@@ -1,10 +1,20 @@
+var math = require('mathjs');
+
 document.getElementById("btn-1").addEventListener("click", addFields, false);
-document.getElementById("btn-2").addEventListener("click", submit, false);  
+document.getElementById("btn-2").addEventListener("click", submit, false);
+
+document.getElementById("btn-3").addEventListener("click", ()=>
+{  
+    flag = 1
+    console.log("flag: " + flag)
+        
+});
 
 var variable_count = document.getElementById("variable_count").value;                   
 var variable_no = document.getElementById("variable_no");                               
 var variable_max = document.getElementById("variable_max");                             
-var variable_min = document.getElementById("variable_min");                             
+var variable_min = document.getElementById("variable_min");    
+var checkbox = document.querySelector("input[name=checkbox]");                         
 var csvContent
 
 var arr_variable =[] 
@@ -19,7 +29,8 @@ var no;
 var tempo;
 var temp2;
 var result = []
-
+var flag
+var gcdArray;
 
 
 function addFields(){
@@ -144,13 +155,34 @@ function submit(){
     }
      
     var a = cartesian(ias)
+    var string
     var answer;
-    for(var i = 0; i < a.length; i++){
-       [...new Set(a[i])].length == 1 ? a.splice(i,1) : false;
-    }
+
+    if(flag===1)
+        {
+            for(var i=0; i<a.length; i++)
+            {
+                [...new Set(a[i])].length == 1 ? a.splice(i,1) : false;
+                const gcdArray = (arr) => arr.reduce((a, b) => gcd(a, b));
+                gcds = gcdArray(a[i]);
+
+                console.log("\n")
+                console.log("a[i]",a[i])
+                for(var j=0 ; j < a[i].length ; j++)
+                {
+                    var temp = a[i][j]
+                    temp = temp / gcds
+                    console.log(temp)
+                    a[i][j] = temp
+                }
+            }
+        }
+
+        console.log(a)
 
     for(var i = 0; i < a.length; i++)
     {
+        
         var question = document.getElementById("question").value; 
         var formula  = document.getElementById("formula").value; 
         var solution = document.getElementById("solution").value; 
@@ -168,35 +200,39 @@ function submit(){
             option2 = replaceAll(option2,temp2,tempo[j])
             option3 = replaceAll(option3,temp2,tempo[j])
             solution = replaceAll(solution,temp2,tempo[j])
+            solution = solution.replace("\n",'')
         }
             answer = (eval(formula))
             option1 = (eval(option1))
             option2 = (eval(option2))
             option3 = (eval(option3))
+
         if(Number.isInteger(answer))
         {   
             result[i] = [no,question,solution,option1,option2,option3,answer];
-            no = no + 1
         }
-        document.getElementById("test").innerHTML += `<table class="table">
+        
+        document.getElementById("list").innerHTML += `<table class="table">
         <tbody>
           <tr>
             <td>`+no+") "+question+`</td>
             <td> Solution: `+solution+`</td>
-            <td> Option 1: `+option1+`</td>
+            <td> Option 1: `+option1+`</td> 
             <td> Option 2: `+option2+`</td>
             <td> Option 3: `+option3+`</td>
             <td> Answer: `+answer+`</td>
           </tr>
         </tbody>
       </table>`
+        no = no + 1
         csvContent = "data:text/csv;question_generator,";
         result.forEach(function(rowArray) {
             let row = rowArray.join(",");
             csvContent += row + "\r\n";
         });
     } 
-    console.log(JSON.stringify(res));
+    
+
 
     var encodedUri = encodeURI(csvContent);
     window.open(encodedUri);
@@ -205,9 +241,10 @@ function submit(){
     const pagination_element = document.getElementById('pagination');
 
     let current_page = 1;
-    let rows = 25;
+    let rows = 15;
 
-    function DisplayList (items, wrapper, rows_per_page, page) {
+    function DisplayList (items, wrapper, rows_per_page, page) 
+    {
 	wrapper.innerHTML = "";
 	page--;
 
@@ -221,19 +258,8 @@ function submit(){
 		let item_element = document.createElement('p');
 		item_element.classList.add('item');
 		item_element.innerText = item;
-		
 		wrapper.appendChild(item_element);
 	}
-
-    // for (let i = 0; i < items.length; i++) {
-	// 	let item = items[i];    
-        
-	// 	let item_element = document.createElement('span');
-	// 	item_element.classList.add('item');
-	// 	item_element.innerText = item;
-	// 	console.log(item+"hi")
-	// 	wrapper.appendChild(item_element);
-	// }
 }
 
     function SetupPagination (items, wrapper, rows_per_page) {
@@ -246,7 +272,7 @@ function submit(){
 	}
 }
 
-    function PaginationButton (page, items) 
+    function PaginationButton(page, items) 
     {
         let button = document.createElement('button');
         button.innerText = page;
@@ -266,11 +292,11 @@ function submit(){
         return button;
     }
     console.log('res',result);
-    DisplayList(result, list_element, rows, current_page);
-    SetupPagination(result, pagination_element, rows);
-
+    // DisplayList(result, list_element, rows, current_page);
+    // SetupPagination(result, pagination_element, rows);
     event.preventDefault(); 
 }
+
 
 function cartesian(arg) {
     var r = [], max = arg.length-1;
@@ -295,10 +321,38 @@ function replaceAll(string, search, replace) {
     return string.split(search).join(replace);
 }
 
+// function gcd(a, b) 
+// { 
+//     if (!b) 
+//        return a;
+//     return gcd(b, a % b); 
+// }
+  
+// // recursive implementation
+//  function findGCD(arr, idx)
+// {
+//     if (idx == arr.length - 1) {
+//         return arr[idx];
+//     }
+//     var a = arr[idx];
+//     var b =  findGCD(arr, idx + 1);
+//     return gcd(a, b); 
+// }
+// var temp;
+
+function gcd(a,b) {
+    while(b!==0){
+        let temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
 
 
-//filter out integers
-// a != b
-//option
-//question paraphrase
-//
+// //filter out integers
+// // a != b
+// //option
+// //question paraphrase
+// // 8,9,10,11,12
+// 
